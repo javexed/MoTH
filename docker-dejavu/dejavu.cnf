@@ -1,0 +1,8 @@
+{
+    "database": {
+        "host": "MARIADB",
+        "user": "root",
+        "passwd": "MARIADB_ENV_MYSQL_ROOT_PASSWORD", 
+        "db": "MARIADB_ENV_MYSQL_DATABASE"
+    }
+}

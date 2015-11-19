@@ -1,0 +1,6 @@
+docker-asterisk
+*.env
+/recordings/*.wav
+/temp
+/docker-dejavu/scripts
+/data/*

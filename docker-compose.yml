@@ -1,0 +1,44 @@
+asterisk:
+  build: ./docker-asterisk
+  links:
+   - asterisk_agi
+  ports:
+   - "4569/udp:4569/udp"
+   - "5038:5038"
+  volumes:
+   - ./recordings:/var/punchblock/record
+asterisk_agi:
+  build: ./docker-asterisk/fastagi
+adhearsion:
+  build: .
+  env_file: adhearsion.env
+  environment:
+    AHN_PUNCHBLOCK_USERNAME: adhearsion
+#    AHN_PUNCHBLOCK_PASSWORD: see adhearsion.env
+  volumes:
+   - ./adhearsion:/opt/adhearsion
+#  net: host
+  links:
+   - asterisk
+   - asterisk_agi
+  ports:
+   - '9050:9050'
+  working_dir: /opt/adhearsion/app
+  command: ahn start .
+mariadb:
+  image: mariadb
+  env_file: mariadb.env
+  environment:
+#    - MYSQL_ROOT_PASSWORD= see mariadb.env
+    - MYSQL_DATABASE=dejavu
+  volumes:
+    - ./data/mysql:/var/www/html/data
+    - /etc/localtime:/etc/localtime:ro
+dejavu:
+  build: ./docker-dejavu
+  links:
+   - mariadb
+  volumes:
+   - ./recordings:/recordings
+   - /etc/localtime:/etc/localtime:ro
+  command: python load_scripts.py
