@@ -10,20 +10,23 @@ asterisk:
 asterisk_agi:
   build: ./docker-asterisk/fastagi
 adhearsion:
-  build: .
-  env_file: adhearsion.env
+  build: ./docker-adhearsion
+  env_file: ./docker-adhearsion/adhearsion.env
   environment:
     AHN_PUNCHBLOCK_USERNAME: adhearsion
 #    AHN_PUNCHBLOCK_PASSWORD: see adhearsion.env
   volumes:
-   - ./adhearsion:/opt/adhearsion
-#  net: host
+   - ./adhearsion_app:/opt/adhearsion/app
+   - ./recordings:/opt/adhearsion/recordings
+   - /etc/localtime:/etc/localtime:ro
+  net: host
   links:
    - asterisk
    - asterisk_agi
+   - dejavu
   ports:
    - '9050:9050'
-  working_dir: /opt/adhearsion/app
+  working_dir: ./app/
   command: ahn start .
 mariadb:
   image: mariadb
@@ -38,7 +41,21 @@ dejavu:
   build: ./docker-dejavu
   links:
    - mariadb
+   - stomp_server
   volumes:
    - ./recordings:/recordings
    - /etc/localtime:/etc/localtime:ro
-  command: python load_scripts.py
+  ports:
+   - "2022:22"
+stomp_server:
+  image: dominikhastrich/rabbitmq-web-stomp 
+  ports:
+   - "61613:61613"
+#  command: "-users admin:password"
+#moth:
+#  build: .
+#  links:
+#   - adhearsion
+#  volumes:
+#   - ./recordings:/recordings
+#   - /etc/localtime:/etc/localtime:ro

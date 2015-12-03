@@ -21,3 +21,5 @@ gem 'adhearsion-drb'
 group :development, :test do
   gem 'rspec'
 end
+
+gem 'stomp'

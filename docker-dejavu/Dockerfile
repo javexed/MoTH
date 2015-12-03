@@ -94,6 +94,9 @@ RUN make install
 RUN make distclean
 RUN hash -r
 
+###
+# Install Dejavu
+###
 # Install the dependencies
 RUN yum install -y numpy scipy python-matplotlib ffmpeg portaudio-devel python-pip gcc gcc-c++ libpng libpng-devel freetype freetype-devel git
 RUN pip install --upgrade pip
@@ -109,6 +112,7 @@ RUN source env_with_system/bin/activate
 RUN pip install PyDejavu
 RUN yum install -y mysql-devel
 RUN pip install mysql-python
+
 # Get Dejavu code
 WORKDIR ${HOME}
 RUN git clone https://github.com/worldveil/dejavu.git ./dejavu
@@ -117,4 +121,9 @@ ADD dejavu.cnf ./
 ADD scripts/ ./scripts
 ADD load_scripts.py ./
 ADD dejavu.py ./
+ADD stomp_listener.py ./
 ADD check_files.sh ./
+
+# Get the stomp client
+RUN pip install stomp.py
+CMD python stomp_listener.py

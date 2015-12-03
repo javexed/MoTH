@@ -39,6 +39,7 @@ Adhearsion.config do |config|
   #config.punchblock.port = ENV["ASTERISK_PORT_5038_TCP_PORT"]
 
   #config.adhearsion_drb.host = "DRb service host"
+  config.adhearsion_drb.host = "0.0.0.0"
   #config.adhearsion_drb.port = "DRB service port".to_i
   #config.adhearsion_drb.acl.allow = ["127.0.0.1"] # list of allowed IPs (optional)
   #config.adhearsion_drb.acl.deny = [] # list of denied IPs (optional)

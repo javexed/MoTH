@@ -4,3 +4,5 @@ docker-asterisk
 /temp
 /docker-dejavu/scripts
 /data/*
+idrsa
+idrsa_pub

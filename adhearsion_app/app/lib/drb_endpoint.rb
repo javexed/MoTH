@@ -5,7 +5,7 @@ class DrbEndpoint
   def place_call(channel,number=nil, provider=nil)
     if number.nil?
       number = channel
-      channel = "IAX2"
+      channel = "SIP"
     else
       provider = provider + "/nj" if channel.downcase == 'local'
     end
