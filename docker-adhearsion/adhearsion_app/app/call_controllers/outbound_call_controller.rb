@@ -19,7 +19,7 @@ class OutboundCallController < Adhearsion::CallController
 
   after_call do
     logger.info @recording.uri
-    rec_file = /(.*)\/(.*$)/.match(recording_uri).captures.last
+    rec_file = /(.*)\/(.*$)/.match(@recording.uri).captures.last
     rec_file.gsub!(/\.wav$/, "-in.wav")
     c=Stomp::Client.new("stomp://localhost:61613")
     c.publish("/queue/fingerprint", rec_file)

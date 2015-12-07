@@ -7,6 +7,7 @@ asterisk:
    - "5038:5038"
   volumes:
    - ./recordings:/var/punchblock/record
+   - /etc/localtime:/etc/localtime:ro
 asterisk_agi:
   build: ./docker-asterisk/fastagi
 adhearsion:
@@ -16,7 +17,6 @@ adhearsion:
     AHN_PUNCHBLOCK_USERNAME: adhearsion
 #    AHN_PUNCHBLOCK_PASSWORD: see adhearsion.env
   volumes:
-   - ./adhearsion_app:/opt/adhearsion/app
    - ./recordings:/opt/adhearsion/recordings
    - /etc/localtime:/etc/localtime:ro
   net: host
@@ -26,8 +26,6 @@ adhearsion:
    - dejavu
   ports:
    - '9050:9050'
-  working_dir: ./app/
-  command: ahn start .
 mariadb:
   image: mariadb
   env_file: mariadb.env
