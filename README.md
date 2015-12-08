@@ -12,7 +12,10 @@
 * run: `rebuild.sh`
 
 ## Configuration
-
+* Set the environment files as you wish
+** mariadb.env
+** docker-adhearsion/adhearsion.env
+ 
 ### Scripts
 Copy all the files you wish to "fingerprint" (be able to validate) into the "docker-dejavu/scripts/" directory. 
 The first time that the DejaVu docker image is built, it will fingerprint everything in that directory.

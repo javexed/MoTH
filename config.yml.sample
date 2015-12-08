@@ -1,2 +1,5 @@
-numbers:
-  - 4443
+call_parameters:
+  concurrent:   1
+call_list:
+  numbers:
+    - 4443
