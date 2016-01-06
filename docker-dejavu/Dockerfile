@@ -2,7 +2,7 @@ FROM centos:centos7
 # Get updates
 RUN yum update -y && yum install -y epel-release
 # Install FFMpeg as per https://trac.ffmpeg.org/wiki/CompilationGuide/Centos
-RUN yum install -y autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel
+RUN yum install -y autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel which
 ENV HOME /root
 RUN mkdir ${HOME}/ffmpeg_sources
 # YASM
@@ -31,7 +31,7 @@ WORKDIR ${HOME}/ffmpeg_sources/x265/build/linux
 RUN cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$HOME/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
 RUN make
 RUN make install
-# libfdk_aac ¶
+# libfdk_aac
 WORKDIR ${HOME}/ffmpeg_sources
 RUN git clone --depth 1 http://git.code.sf.net/p/opencore-amr/fdk-aac
 WORKDIR ${HOME}/ffmpeg_sources/fdk-aac
@@ -78,7 +78,7 @@ RUN make install
 RUN make distclean
 # libvpx
 WORKDIR ${HOME}/ffmpeg_sources
-RUN git clone --depth 1 http://chromium.googlesource.com/webm/libvpx.git
+RUN git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
 WORKDIR ${HOME}/ffmpeg_sources/libvpx
 RUN ./configure --prefix="$HOME/ffmpeg_build" --disable-examples
 RUN make
