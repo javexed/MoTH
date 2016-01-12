@@ -19,7 +19,7 @@ adhearsion:
   volumes:
    - ./recordings:/opt/adhearsion/recordings
    - /etc/localtime:/etc/localtime:ro
-  net: host
+#  net: host
   links:
    - asterisk
    - asterisk_agi
