@@ -5,6 +5,7 @@
 ### Prerequisites
 * Ensure you have docker: https://docs.docker.com/
 * Install docker-compose: https://docs.docker.com/compose/install/
+* Also requires local ruby until I can figure out how to put that into a docker container as well.
 
 ### Install, Download, and Run
 * Clone the repository
@@ -23,6 +24,17 @@ The first time that the DejaVu docker image is built, it will fingerprint everyt
 ### Voip
 Ensure that you configure your iax.conf or sip.conf (examples provided).
 `cp docker-asterisk/sip.conf.example docker-asterisk/sip.conf`
+
+### Test Plan
+Edit the config.yml and put in the numbers you want to test and set the max concurrent calls.
+
+## Run
+Run the following command
+`ruby client.rb`
+
+## Known issues
+* It doesn't do any sort of validation that the call tried to go out. So, if your SIP provider isn't registering, the call will come back as failed.
+* No type of reports, it doesn't correlate the phone number to the "match".
 
 ## Troubleshooting
 To validate that calls are going out:
